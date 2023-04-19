@@ -1,10 +1,4 @@
 import os
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.hazmat.backends import default_backend
-
-backend = default_backend()
-
 
 def encrypt(data, shift):
     result = ""
@@ -39,12 +33,12 @@ def addPWD():
     while done != 1:
         username = input("[*] enter username: ")
         print("[*] username: "+username+"\n")
-        done = int(input("[*] enter 1 to save | 0 to RE-enter username "))
+        done = int(input("[*] enter 1 to save | 0 to RE-enter username: "))
     done = 0
     while done != 1:
         PWD = input("[*] enter password: ")
         print("[*] password: "+PWD+"\n")
-        done = int(input("[*] enter 1 to save | 0 to RE-enter password "))
+        done = int(input("[*] enter 1 to save | 0 to RE-enter password: "))
     if done == 1:
         data = websitename+","+username+","+PWD
         count = 1
@@ -52,7 +46,7 @@ def addPWD():
         with open("data.txt", "r") as f:
             for line in f:
                 count += 1
-        data = encrypt(line, count)
+        data = encrypt(data, count)
         with open("data.txt", "a") as f:
             f.write(data+"\n")
 
@@ -66,7 +60,7 @@ def revealPWD():
     while done != 1:
         username = input("[*] enter username (or '*' to show all users): ")
         print("[*] username: "+username+"\n")
-        done = int(input("[*] enter 1 to proceed | 0 to RE-enter username "))
+        done = int(input("[*] enter 1 to proceed | 0 to RE-enter username: "))
     if done == 1:
         decrypt(websitename, username)
     exit()
